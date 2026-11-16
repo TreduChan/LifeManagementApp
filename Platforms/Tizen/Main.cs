@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace LifeManagementApp
+namespace LifeManagement
 {
     internal class Program : MauiApplication
     {

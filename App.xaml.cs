@@ -1,4 +1,4 @@
-﻿namespace LifeManagementApp
+﻿namespace LifeManagement
 {
     public partial class App : Application
     {

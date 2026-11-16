@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace LifeManagementApp
+namespace LifeManagement
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate
