@@ -13,6 +13,9 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
+		<!-- The project sits at the repo root, so keep tool folders out of the build -->
+		<DefaultItemExcludes>$(DefaultItemExcludes);.claude/**;.idea/**;.vs/**</DefaultItemExcludes>
+
 		<OutputType>Exe</OutputType>
 		<RootNamespace>LifeManagement</RootNamespace>
 		<UseMaui>true</UseMaui>
