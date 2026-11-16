@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace LifeApp;
+namespace LifeManagement;
 
 [Application]
 public class MainApplication : MauiApplication

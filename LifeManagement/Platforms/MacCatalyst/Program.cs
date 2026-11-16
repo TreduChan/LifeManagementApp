@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace LifeApp;
+namespace LifeManagement;
 
 public class Program
 {

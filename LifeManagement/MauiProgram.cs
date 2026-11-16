@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace LifeApp;
+namespace LifeManagement;
 
 public static class MauiProgram
 {

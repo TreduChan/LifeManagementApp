@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="LifeApp.AppShell"
+    x:Class="LifeManagement.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LifeApp"
-    Title="LifeApp">
+    xmlns:local="clr-namespace:LifeManagement"
+    Title="LifeManagement">
 
     <ShellContent
         Title="Home"

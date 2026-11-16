@@ -1,4 +1,4 @@
-﻿namespace LifeApp;
+﻿namespace LifeManagement;
 
 public partial class MainPage : ContentPage
 {
