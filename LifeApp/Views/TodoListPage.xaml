@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LifeManagement.ViewModels"
+             xmlns:models="clr-namespace:LifeManagement.Models"
+             x:Class="LifeManagement.Views.TodoListPage"
+             x:DataType="vm:TodoListViewModel"
+             Title="Todos">
+
+    <!-- Row 0: sort picker + add button, Row 1: the list (takes the rest of the height) -->
+    <Grid Padding="20" RowSpacing="12" ColumnSpacing="12"
+          RowDefinitions="Auto,*" ColumnDefinitions="*,Auto">
+
+        <Picker Grid.Row="0" Grid.Column="0"
+                Title="Sort by"
+                ItemsSource="{Binding SortOptions}"
+                SelectedItem="{Binding SelectedSort}" />
+
+        <Button Grid.Row="0" Grid.Column="1"
+                Text="Add todo"
+                Command="{Binding AddTodoCommand}" />
+
+        <CollectionView Grid.Row="1" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Todos}"
+                        EmptyView="No todos yet. Press Add todo.">
+            <CollectionView.ItemTemplate>
+                <!-- Inside the template each row is bound to one TodoItem, not to the ViewModel -->
+                <DataTemplate x:DataType="models:TodoItem">
+                    <Border Padding="12" Margin="0,0,0,8" StrokeShape="RoundRectangle 8">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" />
+                            <HorizontalStackLayout Spacing="12">
+                                <Label Text="{Binding Priority, StringFormat='Priority {0}'}" />
+                                <Label Text="{Binding DueDate, StringFormat='Due {0:dd.MM.yyyy}'}" />
+                                <Label Text="{Binding Category}" TextColor="Gray" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

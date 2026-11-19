@@ -33,7 +33,6 @@ namespace LifeManagement.ViewModels
         [ObservableProperty] private DateTime dueDate = DateTime.Today.AddDays(1);
         [ObservableProperty] private double priority = 3;   // double because Stepper.Value is a double
         [ObservableProperty] private bool reminder = true;
-        [ObservableProperty] private string result = "";
 
         public string TitleCounter => $"{Title?.Length ?? 0}/40";
 
@@ -79,14 +78,8 @@ namespace LifeManagement.ViewModels
 
             await _repository.AddAsync(item);
 
-            // SQLite filled in the Id during SaveChangesAsync, so it proves the row exists
-            Result = $"Saved #{item.Id}: {item.Title}";
-
-            // Empty the form for the next todo (this also disables Save again)
-            Title = "";
-            Notes = "";
-            Priority = 3;
-            DueDate = DateTime.Today.AddDays(1);
+            // Go back to the list page. ".." means one page back in the navigation stack.
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
