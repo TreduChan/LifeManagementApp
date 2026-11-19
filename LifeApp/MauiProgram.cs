@@ -30,11 +30,19 @@ namespace LifeManagement
             // The repository holds no data of its own, so sharing it is safe.
             builder.Services.AddSingleton<ITodoRepository, TodoRepository>();
 
+            // ---------- weather ----------
+            // One HttpClient for the whole app: creating a new one for every request wastes connections.
+            // The timeout makes a missing network fail after 10 s instead of the default 100 s.
+            builder.Services.AddSingleton(new HttpClient { Timeout = TimeSpan.FromSeconds(10) });
+            builder.Services.AddSingleton<IWeatherService, OpenMeteoWeatherService>();
+
             // Transient = a new instance every time the page is opened, so the form always starts empty.
             builder.Services.AddTransient<AddTodoViewModel>();
             builder.Services.AddTransient<AddTodoPage>();
             builder.Services.AddTransient<TodoListViewModel>();
             builder.Services.AddTransient<TodoListPage>();
+            builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<HomePage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
