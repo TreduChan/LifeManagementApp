@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:LifeManagement"
+             xmlns:vm="clr-namespace:LifeManagement.ViewModels"
              x:Class="LifeManagement.MainPage"
-             x:DataType="local:AddTaskForm"
+             x:DataType="vm:AddTaskViewModel"
              Title="Add task">
 
     <!-- 2 equal columns, 7 rows: only the notes row (2) stretches -->
@@ -27,8 +27,7 @@
         <Entry Grid.Row="1" Grid.ColumnSpan="2"
                x:Name="TitleEntry"
                Placeholder="Title"
-               Text="{Binding Title}"
-               ReturnCommand="{Binding SaveCommand}" />
+               Text="{Binding Title}" />
 
         <!-- Row 2: notes (the stretching row) -->
         <Editor Grid.Row="2" Grid.ColumnSpan="2"
@@ -58,10 +57,9 @@
                      Value="{Binding Priority}" />
         </HorizontalStackLayout>
 
-        <!-- Row 5: save (command – grey when CanSave is false) -->
+        <!-- Row 5: save (gets its command in part 2) -->
         <Button Grid.Row="5" Grid.ColumnSpan="2"
-                Text="Save"
-                Command="{Binding SaveCommand}" />
+                Text="Save" />
 
         <!-- Row 6: result -->
         <Label Grid.Row="6" Grid.ColumnSpan="2"

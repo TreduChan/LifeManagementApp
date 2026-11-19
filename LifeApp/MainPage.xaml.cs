@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+using LifeManagement.ViewModels;
 
 namespace LifeManagement
 {
@@ -7,7 +7,7 @@ namespace LifeManagement
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new AddTaskForm();
+            BindingContext = new AddTaskViewModel();
         }
 
         // pure UI reaction → an event is still the right tool
