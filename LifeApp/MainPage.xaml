@@ -27,7 +27,8 @@
         <Entry Grid.Row="1" Grid.ColumnSpan="2"
                x:Name="TitleEntry"
                Placeholder="Title"
-               Text="{Binding Title}" />
+               Text="{Binding Title}"
+               ReturnCommand="{Binding SaveCommand}" />
 
         <!-- Row 2: notes (the stretching row) -->
         <Editor Grid.Row="2" Grid.ColumnSpan="2"
@@ -57,9 +58,10 @@
                      Value="{Binding Priority}" />
         </HorizontalStackLayout>
 
-        <!-- Row 5: save (gets its command in part 2) -->
+        <!-- Row 5: save (command – grey when CanSave is false) -->
         <Button Grid.Row="5" Grid.ColumnSpan="2"
-                Text="Save" />
+                Text="Save"
+                Command="{Binding SaveCommand}" />
 
         <!-- Row 6: result -->
         <Label Grid.Row="6" Grid.ColumnSpan="2"

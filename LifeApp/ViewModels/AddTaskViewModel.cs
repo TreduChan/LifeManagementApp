@@ -15,6 +15,7 @@ namespace LifeManagement.ViewModels
         // ---------- form fields ----------
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(TitleCounter))]   // the counter label updates too
+        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]   // Save re-checks CanSave
         private string title = "";                         // example – given
 
         [ObservableProperty]
@@ -36,5 +37,17 @@ namespace LifeManagement.ViewModels
         private string result = "";
 
         public string TitleCounter => $"{Title?.Length ?? 0}/40";
+
+        private bool CanSave()
+        {
+            // not empty after trimming, and at most 40 characters
+            return !string.IsNullOrWhiteSpace(Title) && Title.Length <= 40;
+        }
+
+        [RelayCommand(CanExecute = nameof(CanSave))]
+        private void Save()                       // -> the generator creates SaveCommand
+        {
+            Result = $"Saved: {Title.Trim()} · {Category} · P{(int)Priority} · due {DueDate:dd.MM.yyyy} · reminder {(Reminder ? "on" : "off")}";
+        }
     }
 }
