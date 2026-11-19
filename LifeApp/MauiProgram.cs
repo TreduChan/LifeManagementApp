@@ -33,6 +33,8 @@ namespace LifeManagement
             // Transient = a new instance every time the page is opened, so the form always starts empty.
             builder.Services.AddTransient<AddTodoViewModel>();
             builder.Services.AddTransient<AddTodoPage>();
+            builder.Services.AddTransient<TodoListViewModel>();
+            builder.Services.AddTransient<TodoListPage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
