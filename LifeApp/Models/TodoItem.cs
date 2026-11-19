@@ -21,5 +21,8 @@ namespace LifeManagement.Models
 
         // false = still to do. The home page shows only unfinished items.
         public bool IsDone { get; set; }
+
+        // Extra field from the add form. Saved, but not used for anything else yet.
+        public bool Reminder { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 using LifeManagement.Data;
 using LifeManagement.Services;
+using LifeManagement.ViewModels;
+using LifeManagement.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +29,10 @@ namespace LifeManagement
             // Singleton = one shared instance for the whole app.
             // The repository holds no data of its own, so sharing it is safe.
             builder.Services.AddSingleton<ITodoRepository, TodoRepository>();
+
+            // Transient = a new instance every time the page is opened, so the form always starts empty.
+            builder.Services.AddTransient<AddTodoViewModel>();
+            builder.Services.AddTransient<AddTodoPage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
