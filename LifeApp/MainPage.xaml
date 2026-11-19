@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:LifeManagement"
              x:Class="LifeManagement.MainPage"
+             x:DataType="local:AddTaskForm"
              Title="Add task">
 
     <!-- 2 equal columns, 7 rows: only the notes row (2) stretches -->
@@ -11,57 +13,60 @@
           ColumnDefinitions="*,*"
           RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto">
 
-        <!-- Row 0: heading, follows light/dark theme -->
-        <Label Grid.Row="0" Grid.ColumnSpan="2"
+        <!-- Row 0: heading (column 0) + title counter (column 1) -->
+        <Label Grid.Row="0" Grid.Column="0"
                Text="New task"
                Style="{StaticResource Headline}"
                TextColor="{AppThemeBinding Light=#241A45, Dark=White}" />
 
-        <!-- Row 1: title -->
+        <Label Grid.Row="0" Grid.Column="1"
+               Text="{Binding TitleCounter}" TextColor="Gray"
+               HorizontalOptions="End" VerticalOptions="End" />
+
+        <!-- Row 1: title (x:Name kept for Focus()) -->
         <Entry Grid.Row="1" Grid.ColumnSpan="2"
                x:Name="TitleEntry"
-               Placeholder="Title" />
+               Placeholder="Title"
+               Text="{Binding Title}"
+               ReturnCommand="{Binding SaveCommand}" />
 
         <!-- Row 2: notes (the stretching row) -->
         <Editor Grid.Row="2" Grid.ColumnSpan="2"
-                x:Name="NotesEditor"
-                Placeholder="Notes" />
+                Placeholder="Notes"
+                Text="{Binding Notes}" />
 
         <!-- Row 3: category + due date -->
         <Picker Grid.Row="3" Grid.Column="0"
-                x:Name="CategoryPicker"
-                Title="Category" />
+                Title="Category"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding Category}" />
 
         <DatePicker Grid.Row="3" Grid.Column="1"
-                    x:Name="DueDatePicker"
-                    Format="dd.MM.yyyy" />
+                    Format="dd.MM.yyyy"
+                    Date="{Binding DueDate}" />
 
         <!-- Row 4: reminder switch + priority stepper -->
         <HorizontalStackLayout Grid.Row="4" Grid.Column="0" Spacing="8">
             <Label Text="Reminder" VerticalOptions="Center" />
-            <Switch x:Name="ReminderSwitch" IsToggled="True" />
+            <Switch IsToggled="{Binding Reminder}" />
         </HorizontalStackLayout>
 
         <HorizontalStackLayout Grid.Row="4" Grid.Column="1" Spacing="8">
-            <Label Text="Priority" VerticalOptions="Center" />
-            <Label x:Name="PriorityLabel" Text="3" VerticalOptions="Center" />
-            <Stepper x:Name="PriorityStepper"
-                     Minimum="1" Maximum="5" Value="3" Increment="1"
-                     ValueChanged="OnPriorityChanged" />
+            <Label VerticalOptions="Center"
+                   Text="{Binding Priority, StringFormat='Priority {0}'}" />
+            <Stepper Minimum="1" Maximum="5" Increment="1"
+                     Value="{Binding Priority}" />
         </HorizontalStackLayout>
 
-        <!-- Row 5: save -->
+        <!-- Row 5: save (command – grey when CanSave is false) -->
         <Button Grid.Row="5" Grid.ColumnSpan="2"
                 Text="Save"
-                Clicked="OnSaveClicked" />
+                Command="{Binding SaveCommand}" />
 
-        <!-- Row 6: result message + saved task cards (newest on top) -->
-        <VerticalStackLayout Grid.Row="6" Grid.ColumnSpan="2" Spacing="8">
-            <Label x:Name="ResultLabel" Text="" />
-            <ScrollView>
-                <VerticalStackLayout x:Name="SavedList" Spacing="8" />
-            </ScrollView>
-        </VerticalStackLayout>
+        <!-- Row 6: result -->
+        <Label Grid.Row="6" Grid.ColumnSpan="2"
+               Text="{Binding Result}"
+               TextColor="{StaticResource Primary}" />
 
     </Grid>
 
