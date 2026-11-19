@@ -9,8 +9,8 @@ namespace LifeManagement.ViewModels
 {
     public partial class AddTaskViewModel : ObservableObject
     {
-        // ---------- categories (part 3 changes this line!) ----------
-        public List<string> Categories { get; } = new() { "Study", "Home", "Health", "Work" };
+        // ---------- categories: ObservableCollection tells the Picker when an item is added ----------
+        public ObservableCollection<string> Categories { get; } = new() { "Study", "Home", "Health", "Work" };
 
         // ---------- form fields ----------
         [ObservableProperty]
@@ -42,6 +42,28 @@ namespace LifeManagement.ViewModels
         {
             // not empty after trimming, and at most 40 characters
             return !string.IsNullOrWhiteSpace(Title) && Title.Length <= 40;
+        }
+
+        // ---------- new category ----------
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(AddCategoryCommand))]
+        private string newCategory = "";
+
+        private bool CanAddCategory()
+        {
+            // not empty after trimming, and not already in the list (ignore case)
+            string name = NewCategory?.Trim() ?? "";
+            return name.Length > 0
+                && !Categories.Any(c => string.Equals(c, name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        [RelayCommand(CanExecute = nameof(CanAddCategory))]
+        private void AddCategory()                // -> AddCategoryCommand
+        {
+            string name = NewCategory.Trim();
+            Categories.Add(name);
+            Category = name;      // select the new category
+            NewCategory = "";
         }
 
         [RelayCommand(CanExecute = nameof(CanSave))]
