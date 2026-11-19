@@ -3,12 +3,13 @@
     x:Class="LifeManagement.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LifeManagement"
+    xmlns:views="clr-namespace:LifeManagement.Views"
     Title="LifeManagement">
 
+    <!-- Temporary start page until the todo list (issue #6) and home page (issue #7) exist -->
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Add todo"
+        ContentTemplate="{DataTemplate views:AddTodoPage}"
+        Route="AddTodoPage" />
 
 </Shell>

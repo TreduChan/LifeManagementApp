@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:LifeManagement.ViewModels"
-             x:Class="LifeManagement.MainPage"
-             x:DataType="vm:AddTaskViewModel"
-             Title="Add task">
+             x:Class="LifeManagement.Views.AddTodoPage"
+             x:DataType="vm:AddTodoViewModel"
+             Title="Add todo">
 
     <!-- 2 equal columns, 8 rows: only the notes row (2) stretches -->
     <Grid Padding="20"
@@ -15,7 +15,7 @@
 
         <!-- Row 0: heading (column 0) + title counter (column 1) -->
         <Label Grid.Row="0" Grid.Column="0"
-               Text="New task"
+               Text="New todo"
                Style="{StaticResource Headline}"
                TextColor="{AppThemeBinding Light=#241A45, Dark=White}" />
 
