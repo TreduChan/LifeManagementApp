@@ -9,5 +9,7 @@ namespace LifeManagement.Services
         Task<List<TodoItem>> GetAllAsync();
         Task AddAsync(TodoItem item);
         Task UpdateAsync(TodoItem item);
+        Task<TodoItem?> GetByIdAsync(int id);   // null if no todo has that Id
+        Task DeleteAsync(TodoItem item);
     }
 }

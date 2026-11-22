@@ -43,6 +43,8 @@ namespace LifeManagement
             builder.Services.AddTransient<TodoListPage>();
             builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<EditTodoViewModel>();
+            builder.Services.AddTransient<EditTodoPage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

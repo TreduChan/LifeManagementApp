@@ -38,5 +38,19 @@ namespace LifeManagement.Services
             db.Todos.Update(item);   // finds the row by Id and becomes an UPDATE
             await db.SaveChangesAsync();
         }
+
+        public async Task<TodoItem?> GetByIdAsync(int id)
+        {
+            await using var db = await _dbFactory.CreateDbContextAsync();
+            // FindAsync looks the row up by its primary key (a SELECT ... WHERE Id = id)
+            return await db.Todos.FindAsync(id);
+        }
+
+        public async Task DeleteAsync(TodoItem item)
+        {
+            await using var db = await _dbFactory.CreateDbContextAsync();
+            db.Todos.Remove(item);   // becomes a DELETE, found by Id
+            await db.SaveChangesAsync();
+        }
     }
 }

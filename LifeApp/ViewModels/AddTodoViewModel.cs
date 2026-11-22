@@ -34,11 +34,11 @@ namespace LifeManagement.ViewModels
         [ObservableProperty] private double priority = 3;   // double because Stepper.Value is a double
         [ObservableProperty] private bool reminder = true;
 
-        public string TitleCounter => $"{Title?.Length ?? 0}/40";
+        public string TitleCounter => $"{Title?.Length ?? 0}/{TodoItem.MaxTitleLength}";
 
-        // This is where an empty title is blocked: while it returns false the Save button is disabled
+        // This is where an empty title is blocked (the rule itself is in TodoItem.IsValidTitle): while it returns false the Save button is disabled
         // and Enter in the title field does nothing.
-        private bool CanSave() => !string.IsNullOrWhiteSpace(Title) && Title.Length <= 40;
+        private bool CanSave() => TodoItem.IsValidTitle(Title);
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(AddCategoryCommand))]
