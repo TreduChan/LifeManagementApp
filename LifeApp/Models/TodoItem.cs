@@ -4,6 +4,14 @@ namespace LifeManagement.Models
     // database and the unit tests can use it without knowing about pages.
     public class TodoItem
     {
+        // The title rule in one place, used by both the add page and the edit page
+        public const int MaxTitleLength = 40;
+
+        public static bool IsValidTitle(string? title)
+        {
+            return !string.IsNullOrWhiteSpace(title) && title.Length <= MaxTitleLength;
+        }
+
         // EF Core treats a property named "Id" as the primary key automatically
         // and lets SQLite generate the number when a new item is added.
         public int Id { get; set; }

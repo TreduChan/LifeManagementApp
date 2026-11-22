@@ -28,6 +28,9 @@ namespace LifeManagement.ViewModels
         [ObservableProperty] private string weatherText = "Loading weather...";
         [ObservableProperty] private bool isKitesurfWeather;
 
+        // true while the weather request is running: the page shows a spinning ActivityIndicator
+        [ObservableProperty] private bool isLoadingWeather;
+
         // The top 3 rule in one place. static + no database = easy to unit test (step 5).
         public static List<TodoItem> PickTop3(IEnumerable<TodoItem> todos)
         {
@@ -38,6 +41,10 @@ namespace LifeManagement.ViewModels
                 .Take(3)
                 .ToList();
         }
+
+        // The kitesurf rule in one place, also static so the tests can call it directly.
+        // "Above 5" means exactly 5.0 m/s is NOT kitesurf weather.
+        public static bool IsKitesurfWind(double windSpeed) => windSpeed > KitesurfWindLimit;
 
         // Called by the page every time it appears
         public async Task LoadAsync()
@@ -50,7 +57,10 @@ namespace LifeManagement.ViewModels
 
             // ---------- weather ----------
             WeatherText = "Loading weather...";
+            IsLoadingWeather = true;
             var weather = await _weatherService.GetCurrentWeatherAsync();
+            // The service never throws (it returns null instead), so this line is always reached
+            IsLoadingWeather = false;
 
             if (weather == null)
             {
@@ -61,7 +71,7 @@ namespace LifeManagement.ViewModels
             }
 
             WeatherText = $"Vaasa: {weather.Temperature:0.0} °C, wind {weather.WindSpeed:0.0} m/s";
-            IsKitesurfWeather = weather.WindSpeed > KitesurfWindLimit;
+            IsKitesurfWeather = IsKitesurfWind(weather.WindSpeed);
         }
     }
 }

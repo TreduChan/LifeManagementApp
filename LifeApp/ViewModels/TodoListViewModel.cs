@@ -34,9 +34,21 @@ namespace LifeManagement.ViewModels
 
         partial void OnSelectedSortChanged(string value) => ApplySort();
 
+        // The CollectionView's SelectedItem is bound to this. Picking a todo opens the edit page.
+        [ObservableProperty]
+        private TodoItem? selectedTodo;
+
+        partial void OnSelectedTodoChanged(TodoItem? value)
+        {
+            if (value != null)
+                OpenTodoCommand.Execute(value);
+        }
+
         // Called by the page every time it appears, so a todo added on the add page shows up here
         public async Task LoadAsync()
         {
+            // Clear the selection, so the same todo can be picked again after coming back
+            SelectedTodo = null;
             _allTodos = await _repository.GetAllAsync();
             ApplySort();
         }
@@ -52,6 +64,13 @@ namespace LifeManagement.ViewModels
             Todos.Clear();
             foreach (var todo in sorted)
                 Todos.Add(todo);
+        }
+
+        // Parameter passing: the todo's Id travels in the route, like a query in a web address
+        [RelayCommand]
+        private async Task OpenTodoAsync(TodoItem todo)
+        {
+            await Shell.Current.GoToAsync($"{nameof(EditTodoPage)}?id={todo.Id}");
         }
 
         // Navigation by route name. The route is registered in AppShell.xaml.cs.

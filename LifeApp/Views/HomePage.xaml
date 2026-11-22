@@ -12,7 +12,13 @@
 
         <Label Grid.Row="0" Text="Weather" Style="{StaticResource SubHeadline}" HorizontalOptions="Start" />
 
-        <Label Grid.Row="1" Text="{Binding WeatherText}" FontSize="16" />
+        <!-- Spinner + text side by side. The spinner only shows while the weather is loading. -->
+        <HorizontalStackLayout Grid.Row="1" Spacing="8">
+            <ActivityIndicator IsRunning="{Binding IsLoadingWeather}"
+                               IsVisible="{Binding IsLoadingWeather}"
+                               HeightRequest="20" WidthRequest="20" />
+            <Label Text="{Binding WeatherText}" FontSize="16" VerticalOptions="Center" />
+        </HorizontalStackLayout>
 
         <!-- Only visible when the ViewModel says wind > 5 m/s -->
         <Border Grid.Row="2" Padding="12" StrokeShape="RoundRectangle 8"
@@ -32,7 +38,8 @@
                         <VerticalStackLayout Spacing="4">
                             <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" />
                             <HorizontalStackLayout Spacing="12">
-                                <Label Text="{Binding Priority, StringFormat='Priority {0}'}" />
+                                <Label Text="{Binding Priority, StringFormat='Priority {0}'}"
+                                       TextColor="{Binding Priority, Converter={StaticResource PriorityToColor}}" />
                                 <Label Text="{Binding DueDate, StringFormat='Due {0:dd.MM.yyyy}'}" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>

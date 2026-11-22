@@ -1,5 +1,4 @@
 using System.Net.Http.Json;
-using System.Text.Json.Serialization;
 using LifeManagement.Models;
 
 namespace LifeManagement.Services
@@ -40,24 +39,6 @@ namespace LifeManagement.Services
                 // null tells the ViewModel to show a message instead of the weather.
                 return null;
             }
-        }
-
-        // ---------- classes that match the JSON's shape ----------
-        // Only the fields we need. [JsonPropertyName] maps the JSON key to the C# property name.
-        // The JSON looks like: { "current": { "temperature_2m": 0.8, "wind_speed_10m": 4.4 } }
-        private class OpenMeteoResponse
-        {
-            [JsonPropertyName("current")]
-            public CurrentWeather? Current { get; set; }
-        }
-
-        private class CurrentWeather
-        {
-            [JsonPropertyName("temperature_2m")]
-            public double Temperature { get; set; }
-
-            [JsonPropertyName("wind_speed_10m")]
-            public double WindSpeed { get; set; }
         }
     }
 }
